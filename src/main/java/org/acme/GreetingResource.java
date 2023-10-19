@@ -12,7 +12,7 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        Log.warn("log test");
+        Log.info("log test");
         return "Hello there earthling "+ System.currentTimeMillis();
     }
 }

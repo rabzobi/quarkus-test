@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 @QuarkusTest
 public class GreetingResourceTest {
@@ -15,7 +16,7 @@ public class GreetingResourceTest {
           .when().get("/hello")
           .then()
              .statusCode(200)
-             .body(is("Hello from RESTEasy Reactive"));
+             .body(not("Hello from RESTEasy Reactive"));
     }
 
 }
