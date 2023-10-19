@@ -30,6 +30,7 @@ ObjectStore
 docker/distroless/bazel-*
 /.apt_generated_tests/
 *.log
+*.log.*
 quarkus.log*
 replay_*.logß
 nbactions.xml
