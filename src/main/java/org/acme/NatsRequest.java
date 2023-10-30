@@ -10,21 +10,28 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 @Path("/nats")
-public class NatsResource {
+public class NatsRequest {
 
-    String server = "nats://10.224.61.200:4222";
-
+    @ConfigProperty(name = "nats.server")
+    String server;
+    @ConfigProperty(name = "default.subject")
+    String defaultSubject;
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String nats(@QueryParam("subject") String subject) {
+
+        String sub = subject.isEmpty() ? defaultSubject : subject;
+
         try (Connection nc = Nats.connect(server)) {
             Message reply = nc.request(NatsMessage.builder()
-                            .subject(subject)
+                            .subject(sub)
+                            .data("Hi")
                             .build(),
                     Duration.ofSeconds(5));
             Log.info("Reply: "+reply);
